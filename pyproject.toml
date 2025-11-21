@@ -1,0 +1,29 @@
+[project]
+name = "aboutness"
+version = "0.1.0"
+description = "Formal ontology editor"
+authors = [
+    {name = "Julius Hamilton",email = "t0lz@tutamail.com"}
+]
+license = {text = "GPL-3.0-or-later"}
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "pyside6 (>=6.10.1,<7.0.0)"
+]
+
+[project.scripts]
+aboutness = "aboutness.app:main"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.0.1,<10.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "aboutness", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
