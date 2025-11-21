@@ -1,26 +1,4 @@
-# Byte-compiled / cache
 __pycache__/
 *.py[cod]
-*.pyo
-
-# Virtual environments
 .venv/
-env/
-venv/
-
-# Editors / OS
 .DS_Store
-.idea/
-.vscode/
-
-# PyInstaller / build artifacts
-build/
-dist/
-*.spec
-
-# Coverage / test artifacts
-.pytest_cache/
-.tox/
-.coverage
-.coverage.*
-htmlcov/
