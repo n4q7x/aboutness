@@ -1,47 +1,25 @@
-"""Minimal PySide6 desktop canvas app."""
-
-from __future__ import annotations
+"""App entrypoint."""
 
 import sys
 
-from PySide6.QtCore import QPointF, Qt
-from PySide6.QtGui import QPainter, QPen
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
+from PySide6.QtGui import QKeySequence, QShortcut
+from PySide6.QtWidgets import QApplication, QMainWindow
+
+from aboutness.ui.layout import build_central_widget
 
 
-class Canvas(QWidget):
-    """Simple canvas that lets you place dots with left clicks."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._points: list[QPointF] = []
-        self.setMinimumSize(640, 480)
-        self.setAutoFillBackground(True)
-
-    def mousePressEvent(self, event) -> None:  # type: ignore[override]
-        if event.button() == Qt.LeftButton:
-            # event.position() returns QPointF in Qt6.
-            self._points.append(event.position())
-            self.update()
-        super().mousePressEvent(event)
-
-    def paintEvent(self, event) -> None:  # type: ignore[override]
-        painter = QPainter(self)
-        painter.fillRect(self.rect(), Qt.white)
-        pen = QPen(Qt.black, 4)
-        painter.setPen(pen)
-        for point in self._points:
-            painter.drawPoint(point.toPoint())
-        super().paintEvent(event)
-
-
-def main() -> None:
+def main():
     app = QApplication(sys.argv)
     window = QMainWindow()
     window.setWindowTitle("Aboutness Canvas")
-    window.resize(800, 600)
-    canvas = Canvas()
-    window.setCentralWidget(canvas)
+
+    # Central content: canvas on the left, right panel, bottom panel.
+    window.setCentralWidget(build_central_widget())
+
+    # macOS-friendly close shortcut (Cmd+W).
+    QShortcut(QKeySequence.StandardKey.Close, window, activated=window.close)
+
+    window.resize(1000, 700)
     window.show()
     sys.exit(app.exec())
 
